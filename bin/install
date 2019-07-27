@@ -45,7 +45,7 @@ get_binary_path_in_archive() {
 
 get_platform() {
   platform=$(uname)
-  echo "${platform,,}-amd-64"
+  echo "${platform,,}-amd64"
 }
 
 get_filename() {

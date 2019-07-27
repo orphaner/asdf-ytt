@@ -1,6 +1,6 @@
 language: c
 env:
-  - TOOL_NAME=ytt TOOL_VERSION=v0.16.0 TOOL_TEST_COMMAND='ytt --version'
+  - TOOL_NAME=ytt TOOL_VERSION=v0.16.0 TOOL_TEST_COMMAND='ytt version'
 before_script:
   - git clone https://github.com/asdf-vm/asdf.git
   - . asdf/asdf.sh
