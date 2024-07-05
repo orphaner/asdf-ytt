@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-github_coordinates=k14s/ytt
+github_coordinates=carvel-dev/ytt
 releases_path="https://api.github.com/repos/${github_coordinates}/releases"
 cmd="curl -s"
 if [ -n "$GITHUB_API_TOKEN" ]; then
