@@ -44,8 +44,30 @@ get_binary_path_in_archive() {
 }
 
 get_platform() {
-  platform=$(uname)
-  echo "${platform,,}-amd64"
+  local os=$(uname)
+  local arch=$(uname -m)
+  
+  # Convert OS name to lowercase
+  os="${os,,}"
+  
+  # Normalize architecture names
+  case "${arch}" in
+    x86_64|amd64)
+      arch="amd64"
+      ;;
+    aarch64|arm64)
+      arch="arm64"
+      ;;
+    riscv64)
+      arch="riscv64"
+      ;;
+    *)
+      echo "Unsupported architecture: ${arch}" >&2
+      exit 1
+      ;;
+  esac
+  
+  echo "${os}-${arch}"
 }
 
 get_filename() {
@@ -56,7 +78,7 @@ get_filename() {
   echo "${binary_name}-${platform}"
 }
 
-# https://github.com/k14s/ytt/releases/download/v0.16.0/ytt-linux-amd64
+# https://github.com/carvel-dev/ytt/releases/download/v0.52.1/ytt-linux-amd64
 
 get_download_url() {
   local version="$1"
@@ -65,7 +87,7 @@ get_download_url() {
   local filename
   filename="$(get_filename "$version" "$platform" "$binary_name")"
 
-  echo "https://github.com/k14s/ytt/releases/download/${version}/${filename}"
+  echo "https://github.com/carvel-dev/ytt/releases/download/${version}/${filename}"
 }
 
 tmp_download_dir="$(mktemp -d -t 'asdf_XXXXXXXX')"
